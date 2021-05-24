@@ -4,10 +4,25 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public float redHealth = 100f;
+
+    public string colour;
+
+    public material sdd;
+
+    List<string> listOfTypes = new List<string>()
     {
-        
+        "Red",
+        "Blue",
+        "Yellow"
+    };
+
+    void Start() 
+    {
+        int randInt = Random.Range(1,listOfTypes.Count);
+
+        colour = listOfTypes[randInt];
     }
 
     // Update is called once per frame

@@ -5,14 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 
-    public GameObject enemy;
-
-    List<string> listOfTypes = new List<string>()
-    {
-        "Red",
-        "Blue",
-        "Yellow"
-    };
+    public GameObject Enemy;
 
     // List<enemyColour> listOfEnemyTypes = new List<enemyColour>()
     // {
@@ -25,10 +18,23 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        enemy = GameObject.Instantiate(enemy) as GameObject;
 
-        int randInt = Random.Range(1,listOfTypes.Count);
+        for (int i = 0; i < 4; i++)
+        {
+            int randX = Random.Range(-25,25);
+            int randZ = Random.Range(-25,25);
 
-        Debug.Log(listOfTypes[randInt]);
+            Instantiate(Enemy, new Vector3(randX, 0f, randZ), Quaternion.identity);
+        }
+
+        // Enemy = GameObject.Instantiate(Enemy, new Vector3()) as GameObject;
+
+        // int randInt = Random.Range(1,listOfTypes.Count);
+
+        // Debug.Log(listOfTypes[randInt]);
+
+        int objects = GameObject.FindObjectsOfType(typeof(Enemy)).Length;
+
+        Debug.Log(objects);
     }
 }
