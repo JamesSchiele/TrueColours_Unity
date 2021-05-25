@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 6; i++)
         {
             int randX = Random.Range(-25,25);
             int randZ = Random.Range(-25,25);
@@ -34,7 +34,5 @@ public class EnemySpawner : MonoBehaviour
         // Debug.Log(listOfTypes[randInt]);
 
         int objects = GameObject.FindObjectsOfType(typeof(Enemy)).Length;
-
-        Debug.Log(objects);
     }
 }
