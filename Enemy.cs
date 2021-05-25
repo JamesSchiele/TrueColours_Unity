@@ -9,8 +9,6 @@ public class Enemy : MonoBehaviour
 
     public string colour;
 
-    public material sdd;
-
     List<string> listOfTypes = new List<string>()
     {
         "Red",

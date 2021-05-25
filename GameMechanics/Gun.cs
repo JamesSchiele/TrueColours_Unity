@@ -35,14 +35,14 @@ public class Gun : MonoBehaviour
 
         Physics.Raycast(firePoint.transform.position, this.transform.forward * range, out hit, range);
 
-        Debug.Log(hit.transform.name);
+        //Debug.Log(hit.transform.name);
         GameObject laser = GameObject.Instantiate(redLaser, transform.position, transform.rotation) as GameObject;
         laser.GetComponent<ShotBehavior>().setTarget(hit.point);
         GameObject.Destroy(laser, 2f);
 
         if(hit.collider.gameObject.tag == "Enemy")
         {
-            Destroy(hit.collider.gameObject);
+            // Destroy(hit.collider.gameObject);
             GameObject.Destroy(laser, 1f);
         }
     }
