@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
 
     public float redHealth = 100f;
 
-    public string colour;
+    public string colourWeakness;
+  
 
     List<string> listOfTypes = new List<string>()
     {
@@ -20,12 +21,22 @@ public class Enemy : MonoBehaviour
     {
         int randInt = Random.Range(1,listOfTypes.Count);
 
-        colour = listOfTypes[randInt];
+        colourWeakness = listOfTypes[randInt];
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        colourHitCheck();
+    }
+
+    void colourHitCheck()
+    {
+        string colourTest = GetComponent<ColourChangeOnHit>().colour;
+
+        if(colourTest == colourWeakness)
+        {
+            GameObject.Destroy(gameObject, 1f);
+        }
     }
 }
