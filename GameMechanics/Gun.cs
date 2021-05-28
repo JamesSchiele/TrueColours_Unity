@@ -28,6 +28,7 @@ public class Gun : MonoBehaviour
     void Awake()
     {
         equippedLaser = laserColours[i];
+
     }
 
     // Update is called once per frame

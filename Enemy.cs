@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,8 +10,7 @@ public class Enemy : MonoBehaviour
 
     public string colourWeakness;
 
-    public Canvas canvasRect;
-  
+    [SerializeField] TextMeshProUGUI weakToColour;
 
     List<string> listOfTypes = new List<string>()
     {
@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
         int randInt = Random.Range(1,listOfTypes.Count);
 
         colourWeakness = listOfTypes[randInt];
+
+        weakToColour.text = colourWeakness.ToString();
     }
 
     // Update is called once per frame
