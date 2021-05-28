@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
@@ -22,7 +23,9 @@ public class Gun : MonoBehaviour
 
     public List <GameObject> laserColours = new List<GameObject>();
 
-    void Start()
+    [SerializeField] TextMeshProUGUI displayLaserColour;
+
+    void Awake()
     {
         equippedLaser = laserColours[i];
     }
@@ -51,6 +54,8 @@ public class Gun : MonoBehaviour
             equippedLaser = laserColours[i]; // Assign current equipped laser to laserColour list selected index
 
             Debug.Log(equippedLaser);
+
+            displayLaserColour.text = "Laser: " + equippedLaser.ToString();
 
             i ++; // Increment on mouse(1) press        
 
