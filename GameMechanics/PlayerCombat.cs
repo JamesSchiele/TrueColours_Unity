@@ -6,7 +6,8 @@ using TMPro;
 public class PlayerCombat : MonoBehaviour
 {
     public float damage = 10f;
-    public float range = 1000f;
+    public float laserRange = 1000f;
+    public float meleeRange = 10f;
 
     public GameObject firePoint;
 
@@ -39,6 +40,8 @@ public class PlayerCombat : MonoBehaviour
            // Debug.DrawRay(firePoint.transform.position, firePoint.transform.rotation.eulerAngles * 10, Color.green);
         }    
 
+        MeleeAttack();
+
         ChangeLaserColour();
        // Debug.DrawRay(firePoint.transform.position, this.transform.forward * 10, Color.red);
     }
@@ -46,7 +49,7 @@ public class PlayerCombat : MonoBehaviour
     void ChangeLaserColour() 
     {
 
-        if(Input.GetMouseButtonDown(1)) // If player pressed right mouse button
+        if(Input.GetKeyDown(KeyCode.C)) // If player pressed right mouse button
         {
             // Debug.Log("Mouse button 2 pressed");
             // Debug.Log(laserColours[i]);   
@@ -70,7 +73,7 @@ public class PlayerCombat : MonoBehaviour
     {
         RaycastHit hit; // Declare hit for info
 
-        Physics.Raycast(firePoint.transform.position, this.transform.forward * range, out hit, range);
+        Physics.Raycast(firePoint.transform.position, this.transform.forward * laserRange, out hit, laserRange);
 
         //Debug.Log(hit.transform.name);
         GameObject laser = GameObject.Instantiate(equippedLaser, transform.position, transform.rotation) as GameObject;
@@ -86,6 +89,19 @@ public class PlayerCombat : MonoBehaviour
         {
             GameObject.Destroy(laser, 1f);
         }
+    }
+
+    void MeleeAttack()
+    {
+        RaycastHit hit;
+        
+        Physics.Raycast(firePoint.transform.position, this.transform.forward * meleeRange, out hit, meleeRange);
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            Debug.DrawRay(firePoint.transform.position, this.transform.forward * 1f, Color.red);
+        }
+
     }
 
 }
