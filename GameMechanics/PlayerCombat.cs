@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Gun : MonoBehaviour
+public class PlayerCombat : MonoBehaviour
 {
     public float damage = 10f;
     public float range = 1000f;
@@ -28,7 +28,6 @@ public class Gun : MonoBehaviour
     void Awake()
     {
         equippedLaser = laserColours[i];
-
     }
 
     // Update is called once per frame
