@@ -6,9 +6,18 @@ using TMPro;
 public class Enemy : MonoBehaviour
 {
 
-    public float redHealth = 100f;
+    [SerializeField] int health = 100;
 
     public string colourWeakness;
+
+    public GameObject colourTrail;
+
+    public GameObject hitEffect;
+
+    public Transform LockOnTransform;
+
+    bool shieldUp = true;
+    [SerializeField] float downedShieldsTime = 5f;
 
     [SerializeField] TextMeshProUGUI weakToColour;
 
@@ -26,6 +35,21 @@ public class Enemy : MonoBehaviour
         colourWeakness = listOfTypes[randInt];
 
         weakToColour.text = colourWeakness.ToString();
+
+        Color colourTrailInstance = colourTrail.GetComponent<MeshRenderer>().material.color;
+
+        if (colourWeakness == "Red")
+        {
+            colourTrailInstance = Color.red;
+        }
+        else if (colourWeakness == "Blue")
+        {
+            colourTrailInstance = Color.blue;
+        }
+        else
+        {
+            colourTrailInstance = Color.yellow;
+        }
     }
 
     // Update is called once per frame
@@ -42,27 +66,43 @@ public class Enemy : MonoBehaviour
 
         if(colourTest == colourWeakness)
         {
-            GameObject.Destroy(gameObject, 1f);
+            Debug.Log("Hit");
+
+            StartCoroutine("disableShieldsForTime");
         }
     }
 
-    // void canvasTest()
-    // {
-    //         // Offset position above object bbox (in world space)
-    //     float offsetPosY = transform.position.y + 1.5f;
-        
-    //     // Final position of marker above GO in world space
-    //     Vector3 offsetPos = new Vector3(transform.position.x, offsetPosY, transform.position.z);
-        
-    //     // Calculate *screen* position (note, not a canvas/recttransform position)
-    //     Vector2 canvasPos;
-    //     Vector2 screenPoint = Camera.main.WorldToScreenPoint(offsetPos);
-        
-    //     // Convert screen position to Canvas / RectTransform space <- leave camera null if Screen Space Overlay
-    //     RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, null, out canvasPos);
-        
-    //     // Set
-    //     redHealth.localPosition = canvasPos;
-    // }
- 
+    IEnumerator disableShieldsForTime()
+    {
+        shieldUp = false;
+        yield return new WaitForSeconds(downedShieldsTime);
+        shieldUp = true;
+    }
+
+    void OnCollisionExit(Collision other)
+    {
+        transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
+    void TakeDamage()
+    {
+        health =- 25;
+
+        if(health <= 0)
+        {
+            GameObject.Destroy(this);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "FiringPoint")
+        {
+            Debug.DrawRay(this.transform.position, this.transform.forward * 1f, Color.red);
+
+            Debug.Log("Melee landed");
+            TakeDamage();
+        }
+    }
+
 }

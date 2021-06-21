@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
             int randX = Random.Range(-25,25);
             int randZ = Random.Range(-25,25);
 
-            Instantiate(Enemy, new Vector3(randX, 1.5f, randZ), Quaternion.identity);
+            Instantiate(Enemy, new Vector3(randX, -1.88f, randZ), Quaternion.identity);
         }
 
         // Enemy = GameObject.Instantiate(Enemy, new Vector3()) as GameObject;

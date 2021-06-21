@@ -39,16 +39,13 @@ public class EnemyAI : MonoBehaviour
         if(!playerInAttackRange && !playerInSightRange) 
         {
             Patrolling();
-            Debug.Log("Patrolling");
         }
         if(!playerInAttackRange && playerInSightRange)
         {
             ChasePlayer();
-            Debug.Log("Chase Player");
         } 
         if(playerInAttackRange && playerInSightRange) 
         {
-            Debug.Log("Attack Player");
             AttackPlayer();
         }
     }
@@ -81,7 +78,6 @@ public class EnemyAI : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
         {
             walkPointSet = true;
-            Debug.Log("Walk pont set");
         }
     }
 
@@ -95,5 +91,17 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(player.position);
 
         transform.LookAt(player);
+
+        if(!alreadyAttacked)
+        {
+            /// Attack code here
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
+    }
+
+    private void ResetAttack()
+    {
+        alreadyAttacked = false;
     }
 }

@@ -10,25 +10,19 @@ public class ColourChangeOnHit : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         {
-            Debug.Log("Hit detected");
-            //Debug.Log(other);
-
             if (other.gameObject.tag == "Red Laser")
             {
-                Debug.Log("Paint me red");
-                GetComponent<MeshRenderer>().material.color = Color.red;
+                GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
                 colour = "Red";
             } 
             if (other.gameObject.tag == "Yellow Laser")
             {
-                Debug.Log("Paint me yellow");
-                GetComponent<MeshRenderer>().material.color = Color.yellow;
+                GetComponent<SkinnedMeshRenderer>().material.color = Color.yellow;
                 colour = "Yellow";
             } 
             if (other.gameObject.tag == "Blue Laser")
             {
-                Debug.Log("Paint me blue");
-                GetComponent<MeshRenderer>().material.color = Color.blue;
+                GetComponent<SkinnedMeshRenderer>().material.color = Color.cyan;
                 colour = "Blue";
             }       
         }

@@ -5,30 +5,45 @@ using TMPro;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public float damage = 10f;
+    //// Parameters
+    public float damage = 20f;
+
+    //// Laser Parameters
+    public float health;
+    // Range
     public float laserRange = 1000f;
     public float meleeRange = 10f;
-
-    public GameObject firePoint;
-
     public float shootRate;
+    // Shoot Rate
     private float m_shootRateTimeStamp;
 
+    // Game Objects
+    public GameObject firePoint;
+
+    // Laser Types
     public GameObject redLaser;
     public GameObject yellowLaser;
     public GameObject blueLaser;
 
+    // Laser equipment
+    public List <GameObject> laserColours = new List<GameObject>();
     GameObject equippedLaser;
-
     int i = 0;
 
-    public List <GameObject> laserColours = new List<GameObject>();
+    // Melee Parameters
+    public BoxCollider Collider;  
 
+    // UI Display
     [SerializeField] TextMeshProUGUI displayLaserColour;
+    [SerializeField] TextMeshProUGUI displayHealth;
+
+    // SFX
+    public GameObject hitSpark;
 
     void Awake()
     {
         equippedLaser = laserColours[i];
+        Collider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -40,10 +55,17 @@ public class PlayerCombat : MonoBehaviour
            // Debug.DrawRay(firePoint.transform.position, firePoint.transform.rotation.eulerAngles * 10, Color.green);
         }    
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            StartCoroutine("QuickAttack");
+        }
+
         MeleeAttack();
 
         ChangeLaserColour();
-       // Debug.DrawRay(firePoint.transform.position, this.transform.forward * 10, Color.red);
+
+        Health();
+
     }
 
     void ChangeLaserColour() 
@@ -55,8 +77,6 @@ public class PlayerCombat : MonoBehaviour
             // Debug.Log(laserColours[i]);   
 
             equippedLaser = laserColours[i]; // Assign current equipped laser to laserColour list selected index
-
-            Debug.Log(equippedLaser);
 
             displayLaserColour.text = "Laser: " + equippedLaser.ToString();
 
@@ -77,12 +97,12 @@ public class PlayerCombat : MonoBehaviour
 
         //Debug.Log(hit.transform.name);
         GameObject laser = GameObject.Instantiate(equippedLaser, transform.position, transform.rotation) as GameObject;
-        //laser.GetComponent<ShotBehavior>().setTarget(hit.point);
-       // GameObject.Destroy(laser, 2f);
 
         if(hit.collider.gameObject.tag == "Enemy")
         {
             //Destroy(hit.collider.gameObject);
+            GameObject hitSparkInstantiated = Instantiate(hitSpark, transform.position, transform.rotation);
+            GameObject.Destroy(hitSparkInstantiated, 1f);
             GameObject.Destroy(laser, 1f); // Destroy laser on hit
         }
         else
@@ -101,7 +121,21 @@ public class PlayerCombat : MonoBehaviour
         {
             Debug.DrawRay(firePoint.transform.position, this.transform.forward * 1f, Color.red);
         }
-
     }
+
+    IEnumerator QuickAttack()
+    {
+        Collider.enabled = true;
+        Debug.Log(Collider.enabled);
+        yield return new WaitForSeconds(0.1f);
+        Collider.enabled = false;
+        Debug.Log(Collider.enabled);
+    }
+
+    void Health()
+    {
+        displayHealth.text = "Health: " + health.ToString();
+    }
+
 
 }
