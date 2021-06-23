@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CameraHandler : MonoBehaviour
 {
@@ -11,16 +12,20 @@ public class CameraHandler : MonoBehaviour
     
     // Player transform
     private Transform myTransform;
-
     public Transform playerFollowPoint;
 
     // Camera lock-on paramaters
     public Transform targetTransform;
     private float rotationPower = 20f;
 
+    // Aim reticule
+    public GameObject aimReticule;
+
     // Virtual Cameras
     public GameObject thirdPersonFreeAim;
     public GameObject thirdPersonReticuleAim;
+
+    private bool freeAim = true;
 
     // Camera transform
     // public Transform cameraPivotTransform;
@@ -46,6 +51,11 @@ private void Start()
 
     mouseX = Input.GetAxis("Mouse X");
     mouseY = Input.GetAxis("Mouse Y");
+
+    thirdPersonFreeAim.SetActive(true);
+    thirdPersonReticuleAim.SetActive(false);
+
+    aimReticule.SetActive(false);
 }
 
 void Update()
@@ -83,9 +93,31 @@ private void RotatePlayerFollowPoint()
 
     playerFollowPoint.transform.localEulerAngles = angles;
 
-    if (Input.GetKeyDown(KeyCode.R))
+    AimDownSights();
+}
+
+public void AimDownSights()
+{
+    
+    if (Input.GetKey(KeyCode.R) && (freeAim = true))
     {
         Debug.Log("Engage crosshair firing");
+
+        freeAim = false;
+
+        thirdPersonFreeAim.SetActive(false);
+        thirdPersonReticuleAim.SetActive(true);
+
+        aimReticule.SetActive(true);
+    }
+    else
+    {
+        thirdPersonFreeAim.SetActive(true);
+        thirdPersonReticuleAim.SetActive(false);
+
+        aimReticule.SetActive(false);
+
+        freeAim = true;
     }
 }
 
