@@ -24,11 +24,11 @@ public class CameraHandler : MonoBehaviour
     // Virtual Cameras
     public GameObject thirdPersonFreeAim;
     public GameObject thirdPersonReticuleAim;
+    public GameObject thirdPersonTarger;
 
     private bool freeAim = true;
 
     // Camera transform
-    // public Transform cameraPivotTransform;
     // private Vector3 cameraTransformPosition;
     // private LayerMask ignoreLayers;
 
@@ -52,10 +52,12 @@ private void Start()
     mouseX = Input.GetAxis("Mouse X");
     mouseY = Input.GetAxis("Mouse Y");
 
-    thirdPersonFreeAim.SetActive(true);
+    thirdPersonFreeAim.SetActive(false);
     thirdPersonReticuleAim.SetActive(false);
+    thirdPersonTarger.SetActive(true);
 
     aimReticule.SetActive(false);
+
 }
 
 void Update()
@@ -93,7 +95,7 @@ private void RotatePlayerFollowPoint()
 
     playerFollowPoint.transform.localEulerAngles = angles;
 
-    AimDownSights();
+    //AimDownSights();
 }
 
 public void AimDownSights()

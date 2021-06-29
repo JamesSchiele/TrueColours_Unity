@@ -13,9 +13,7 @@ public class Enemy : MonoBehaviour
     public GameObject colourTrail;
 
     public GameObject hitEffect;
-
-    public Transform LockOnTransform;
-
+    
     bool shieldUp = true;
     [SerializeField] float downedShieldsTime = 5f;
 

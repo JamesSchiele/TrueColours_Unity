@@ -6,13 +6,13 @@ public class ThirdPersonMovement : MonoBehaviour
 {
 
     public CharacterController controller;
+    public PlayerRadius playerRadius;
     public Transform playerBody;
     public Transform playerFiringPoint;
 
     CameraHandler cameraHander;
 
     public Transform cam; 
-
 
     public float mouseX;
     public float mouseY;
@@ -28,7 +28,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
    void Start()
    {
-
    }
 
     // private void FixedUpdate()
@@ -72,6 +71,8 @@ public class ThirdPersonMovement : MonoBehaviour
             };
 
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
+
+            Debug.Log(playerRadius.targetDirection);
         }
 
     }
