@@ -72,9 +72,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
 
-            Debug.Log(playerRadius.targetDirection);
+            // Debug.Log(playerRadius.targetDirection);        
         }
-
     }
-
 }
