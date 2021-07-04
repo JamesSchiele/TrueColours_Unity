@@ -54,9 +54,9 @@ private void Start()
     mouseY = Input.GetAxis("Mouse Y");
 
     // Set-up of virtual cameras
-    thirdPersonFreeAim.SetActive(true);
+    thirdPersonFreeAim.SetActive(false);
     thirdPersonReticuleAim.SetActive(false);
-    thirdPersonTarger.SetActive(false);
+    thirdPersonTarger.SetActive(true);
 
     // Set-up of over-shoulder aim
     aimReticule.SetActive(false);

@@ -8,7 +8,7 @@ public class PlayerRadius : MonoBehaviour
     // Combat
     SphereCollider playerRadius;
 
-    Transform pos;
+    private Transform pos;
 
     public Vector3 targetDirection;
 
