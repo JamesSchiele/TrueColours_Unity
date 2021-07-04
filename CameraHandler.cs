@@ -49,13 +49,16 @@ private void Start()
 {
     myTransform = transform;
 
+    // Set-up of mouse placement
     mouseX = Input.GetAxis("Mouse X");
     mouseY = Input.GetAxis("Mouse Y");
 
-    thirdPersonFreeAim.SetActive(false);
+    // Set-up of virtual cameras
+    thirdPersonFreeAim.SetActive(true);
     thirdPersonReticuleAim.SetActive(false);
-    thirdPersonTarger.SetActive(true);
+    thirdPersonTarger.SetActive(false);
 
+    // Set-up of over-shoulder aim
     aimReticule.SetActive(false);
 
 }
@@ -121,6 +124,11 @@ public void AimDownSights()
 
         freeAim = true;
     }
+}
+
+public void TargetLock()
+{
+    
 }
 
 }
